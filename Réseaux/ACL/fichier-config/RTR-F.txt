@@ -1,0 +1,94 @@
+hostname RTR-F
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ ip address 192.168.44.1 255.255.255.0
+ no lldp receive
+ ip ospf cost 10
+ ip access-group 101 in
+ duplex auto
+ speed auto
+ no cdp enable
+!
+interface GigabitEthernet0/0/1
+ ip address 192.168.55.1 255.255.255.0
+ no lldp receive
+ ip ospf cost 10
+ duplex auto
+ speed auto
+ no cdp enable
+!
+interface Serial0/1/0
+ ip address 10.10.0.250 255.255.255.252
+ ip ospf network point-to-point
+ ip ospf cost 10
+!
+interface Serial0/1/1
+ ip address 10.10.0.246 255.255.255.252
+ ip ospf cost 10
+ ip access-group 101 out
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 10
+ log-adjacency-changes
+ passive-interface GigabitEthernet0/0/1
+ auto-cost reference-bandwidth 10000
+ network 10.10.0.244 0.0.0.3 area 0
+ network 10.10.0.248 0.0.0.3 area 0
+ network 192.168.44.0 0.0.0.255 area 0
+ network 192.168.55.0 0.0.0.255 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+access-list 101 deny tcp 192.168.44.0 0.0.0.255 host 192.168.33.14 eq www
+access-list 101 permit ip any any
+!
+no cdp run
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end

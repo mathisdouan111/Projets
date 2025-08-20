@@ -1,0 +1,105 @@
+hostname RTR-A
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ ip address 10.10.1.17 255.255.255.248
+ ip ospf cost 10
+ ip ospf priority 255
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/1/0
+ ip address 10.10.0.237 255.255.255.252
+ ip ospf hello-interval 20
+ ip ospf dead-interval 80
+ ip nat inside
+ clock rate 64000
+!
+interface Serial0/1/1
+ ip address 192.0.2.113 255.255.255.248
+ ip access-group BLOQUE-TELNET in
+ ip nat outside
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 10
+ router-id 9.9.9.9
+ log-adjacency-changes
+ auto-cost reference-bandwidth 10000
+ network 10.10.1.16 0.0.0.7 area 0
+ network 10.10.0.236 0.0.0.3 area 0
+ default-information originate
+!
+ip nat pool POOL-NAT 192.0.2.116 192.0.2.118 netmask 255.255.255.248
+ip nat inside source list 1 pool POOL-NAT overload
+ip nat inside source static 192.168.11.100 192.0.2.115 
+ip classless
+ip route 0.0.0.0 0.0.0.0 Serial0/1/0 
+ip route 0.0.0.0 0.0.0.0 Serial0/1/1 
+!
+ip flow-export version 9
+!
+!
+access-list 1 permit 192.168.0.0 0.0.255.255
+ip access-list standard BLOQUE-TELNET
+ permit host 192.168.11.11
+ deny any
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ access-class BLOQUE-TELNET in
+ password cisco
+ login
+ transport input telnet
+line vty 5 6
+ access-class BLOQUE-TELNET in
+ password cisco
+ login
+ transport input telnet
+!
+!
+!
+end

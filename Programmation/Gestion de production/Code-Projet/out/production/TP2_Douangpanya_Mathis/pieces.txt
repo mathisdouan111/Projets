@@ -1,0 +1,21 @@
+id,description,materiaux, poids, etatpiece,tempstraitement,typemateriaux
+001, carter, Metal,2.5,non_traitee,3,acier
+002, boite, Metal,3.0,non_traitee, 4,acier
+003, engrenage, Metal, 1.5,non_traitee,2,fer
+004, manivelle, Metal, 2.2,non_traitee,3,acier
+005,bielle, Metal, 1.8, non_traitee,2,aluminium
+006, vilebrequin, Metal, 3.5,non_traitee,6,fonte
+007, piston, Metal, 1.2,non_traitee, 2,aluminium
+008, cylindre, Metal,4.0,non_traitee, 8,acier
+009, couvercle, Metal,0.8,non_traitee,1,aluminium
+010, carter, Metal,2.8,non_traitee,4,fer
+011,boite,Plastique,3.3,non_traitee,3,pvc
+012, engrenage, Plastique, 1.7,non_traitee,3, ACETAL
+013, manivelle, Plastique, 2.0,non_traitee,7,pvc
+014,bielle, Plastique, 1.9, non_traitee,3, NYLON
+015, vilebrequin, Plastique, 3.6,non_traitee, 4, NYLON
+016, piston, Plastique, 1.1, non_traitee, 2, ACETAL
+017, cylindre, Plastique,3.8,non_traitee, 1, pvc
+018, couvercle, Plastique,0.7,non_traitee,9, NYLON
+019, carter, Plastique, 2.6, non_traitee, 3, ACETAL
+020,boite, Plastique,3.1,non_traitee, 6,pvc
